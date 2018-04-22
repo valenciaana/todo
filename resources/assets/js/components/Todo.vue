@@ -3,29 +3,14 @@
         <div class="box">
             <todo-input
                 @click="addTodo"
-            ><todo-input>
-            <!--
-            <div class="field is-grouped">
-                <p class="control is-expanded">
-                    <input class="input" type="text" placeholder="Nuevo recordatorio" v-model="todoItemText">
-                </p>
-                <p class="control">
-                    <a class="button is-info" @click="addTodo">
-                        Agregar
-                    </a>
-                </p>
-            </div>
-            -->
+            ></todo-input>
         </div>
         <table class="table is-bordered">
-            <tr v-for="(todo, index) in items" :key="index">
-                <td class="is-fullwidth" style="cursor: pointer" :class="{ 'is-done': todo.done }" @click="toggleDone(todo)">
-                    {{ todo.text }}
-                </td>
-                <td class="is-narrow">
-                    <a class="button is-danger is-small" @click="removeTodo(todo)">Eliminar</a>
-                </td>
-            </tr>
+            <todo-item
+                v-for="todo in items"
+                v-bind="todo"
+                :key="todo.id"
+            ></todo-item>
         </table>
     </div>
 </template>
@@ -58,8 +43,8 @@
             });
         },
         methods: {
-            addTodo () {
-                let text = this.todoItemText.trim()
+            addTodo (todoItemText) {
+                let text = todoItemText.trim()
                 if (text !== '') {
                     var todo = {text:text,done:false};
                     window.axios.post('/api/todos', todo, {

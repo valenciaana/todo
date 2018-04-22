@@ -11,4 +11,11 @@
     </div>
 </template>
 <script>
+    export default {
+        methods:{
+            addTodo () {
+                this.$emit('addTodo',this.todoItemText);
+            }
+        }
+    }
 </script>
