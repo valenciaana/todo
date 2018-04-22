@@ -39,7 +39,10 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        // TODO
+        $data = $request->all();
+        $todo = Todo::create($data);
+        $todo = $todo->jsonSerialize();
+        return response($todo, Response::HTTP_OK);
     }
 
     /**
