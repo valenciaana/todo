@@ -30017,6 +30017,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['id', 'text', 'done'],
     methods: {
         toggleDone: function toggleDone(todo) {
             this.$emit('toggleDone', todo);
