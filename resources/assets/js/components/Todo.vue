@@ -33,6 +33,9 @@
      * - En addTodo, removeTodo y toggleTodo deben hacer los cambios pertinentes para que las modificaciones,
      *   addiciones o elimicaiones tomen efecto en el backend asi como la base de datos.
      */
+    import TodoInput from './TodoInput.vue';
+    import TodoItem from './TodoItem.vue';
+
     export default {
         data () {
             return {
@@ -71,6 +74,10 @@
                 window.axios.put(`/api/todos/${todo.id}`, todo);
                 todo.done = !todo.done
             }
+        },
+        components: {
+            TodoInput,
+            TodoItem
         }
     }
 </script>
