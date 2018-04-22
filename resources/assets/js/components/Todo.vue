@@ -26,6 +26,11 @@
 </template>
 
 <script>
+    function Crud({ id, text, done}) {
+        this.id = id;
+        this.text = text;
+        this.done = done;
+    }
     /**
      * Tips:
      * - En mounted pueden obtener el listado del backend de todos y dentro de la promesa de axios asirnarlo
@@ -41,13 +46,22 @@
             }
         },
         mounted () {
-            this.items = [
+            /*this.items = [
                 { text: 'Primer recordatorio', done: true },
                 { text: 'Segundo recordatorio', done: false },
                 { text: 'Tercero recordatorio', done: false },
                 { text: 'Cuarto recordatorio', done: true },
                 { text: 'Quinto recordatorio', done: false },
-            ]
+            ]*/
+            this.mute = true;
+            window.axios.get('/api/todos').then(({ data }) => {
+                data.forEach(todo => {
+                    console.log(todo)
+                    this.items.push(new Todo(todo));
+                });
+            this.mute = false;
+            });
+            console.log(this.items);
         },
         methods: {
             addTodo () {

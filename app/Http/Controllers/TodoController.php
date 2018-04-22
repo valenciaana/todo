@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use App\Todo;
 
 /**
  * En esta clase deben implementar los metodos vacios de acuerdo a lo
@@ -22,7 +24,9 @@ class TodoController extends Controller
      */
     public function index()
     {
-        // TODO
+        $todos = Todo::all();
+        $todos = $todos->jsonSerialize();
+        return response($todos, Response::HTTP_OK);
     }
 
     /**
