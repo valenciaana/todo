@@ -73,6 +73,7 @@ class TodoController extends Controller
      */
     public function delete($id)
     {
-        // TODO
+        Todo::destroy($id);
+        return response(null, Response::HTTP_OK);
     }
 }
