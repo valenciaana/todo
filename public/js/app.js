@@ -29817,11 +29817,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         removeTodo: function removeTodo(todo) {
+            window.axios.delete('/api/todos/' + todo.id);
             this.items = this.items.filter(function (item) {
                 return item !== todo;
             });
         },
         toggleDone: function toggleDone(todo) {
+            window.axios.put('/api/todos/' + todo.id, todo);
             todo.done = !todo.done;
         }
     }

@@ -64,9 +64,11 @@
                 }
             },
             removeTodo (todo) {
+                window.axios.delete(`/api/todos/${todo.id}`);
                 this.items = this.items.filter(item => item !== todo)
             },
             toggleDone (todo) {
+                window.axios.put(`/api/todos/${todo.id}`, todo);
                 todo.done = !todo.done
             }
         }
