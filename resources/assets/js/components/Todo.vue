@@ -1,6 +1,10 @@
 <template>
     <div class="container">
         <div class="box">
+            <todo-input
+                @click="addTodo"
+            ><todo-input>
+            <!--
             <div class="field is-grouped">
                 <p class="control is-expanded">
                     <input class="input" type="text" placeholder="Nuevo recordatorio" v-model="todoItemText">
@@ -11,6 +15,7 @@
                     </a>
                 </p>
             </div>
+            -->
         </div>
         <table class="table is-bordered">
             <tr v-for="(todo, index) in items" :key="index">
