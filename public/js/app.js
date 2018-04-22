@@ -29774,6 +29774,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+function Crud(_ref) {
+    var id = _ref.id,
+        text = _ref.text,
+        done = _ref.done;
+
+    this.id = id;
+    this.text = text;
+    this.done = done;
+}
 /**
  * Tips:
  * - En mounted pueden obtener el listado del backend de todos y dentro de la promesa de axios asirnarlo
@@ -29791,22 +29800,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         var _this = this;
 
-        /*this.items = [
-            { text: 'Primer recordatorio', done: true },
-            { text: 'Segundo recordatorio', done: false },
-            { text: 'Tercero recordatorio', done: false },
-            { text: 'Cuarto recordatorio', done: true },
-            { text: 'Quinto recordatorio', done: false },
-        ]*/
         this.mute = true;
-        window.axios.get('/api/todos').then(function (_ref) {
-            var data = _ref.data;
+        window.axios.get('/api/todos').then(function (_ref2) {
+            var data = _ref2.data;
 
             data.forEach(function (todo) {
-                _this.items.push(new Todo(todo));
+                _this.items.push(todo);
             });
             _this.mute = false;
         });
+        console.log(this.items);
     },
 
     methods: {
