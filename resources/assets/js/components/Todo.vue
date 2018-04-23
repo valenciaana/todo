@@ -53,7 +53,6 @@
                         }
                     })
                     this.items.push(todo)
-                    this.todoItemText = ''
                 }
             },
             removeTodo (todo) {

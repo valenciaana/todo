@@ -29810,7 +29810,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     }
                 });
                 this.items.push(todo);
-                this.todoItemText = '';
             }
         },
         removeTodo: function removeTodo(todo) {
@@ -29896,6 +29895,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            todoItemText: ''
+        };
+    },
+
     methods: {
         addTodo: function addTodo() {
             this.$emit('addTodo', this.todoItemText);
@@ -29918,19 +29923,19 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.todoItemText,
-            expression: "todoItemText"
+            value: this.todoItemText,
+            expression: "this.todoItemText"
           }
         ],
         staticClass: "input",
         attrs: { type: "text", placeholder: "Nuevo recordatorio" },
-        domProps: { value: _vm.todoItemText },
+        domProps: { value: this.todoItemText },
         on: {
           input: function($event) {
             if ($event.target.composing) {
               return
             }
-            _vm.todoItemText = $event.target.value
+            this.todoItemText = $event.target.value
           }
         }
       })
