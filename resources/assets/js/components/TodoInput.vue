@@ -20,6 +20,7 @@
         methods:{
             addTodo () {
                 this.$emit('addTodo',this.todoItemText);
+                this.todoItemText = ''
             }
         }
     }

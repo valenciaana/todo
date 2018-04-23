@@ -29915,6 +29915,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         addTodo: function addTodo() {
             this.$emit('addTodo', this.todoItemText);
+            this.todoItemText = '';
         }
     }
 });
