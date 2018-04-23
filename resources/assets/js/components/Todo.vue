@@ -11,6 +11,8 @@
                 v-for="todo in items"
                 v-bind="todo"
                 :key="todo.id"
+                @toggleDone="toggleDone"
+                @removeTodo="removeTodo"
             ></todo-item>
         </table>
     </div>
@@ -35,12 +37,10 @@
             }
         },
         mounted () {
-            this.mute = true;
             window.axios.get('/api/todos').then(({ data }) => {
                 data.forEach(todo => {
                     this.items.push(todo);
                 });
-            this.mute = false;
             });
         },
         methods: {
@@ -58,11 +58,17 @@
             },
             removeTodo (todo) {
                 window.axios.delete(`/api/todos/${todo.id}`);
-                this.items = this.items.filter(item => item !== todo)
+                this.items = [];
+                window.axios.get('/api/todos').then(({ data }) => {
+                    data.forEach(todo => {
+                        this.items.push(todo);
+                    });
+                });
             },
             toggleDone (todo) {
                 window.axios.put(`/api/todos/${todo.id}`, todo);
                 todo.done = !todo.done
+                this.items.find(todo => todo.id === todo.id).done = todo.done;
             }
         },
         components: {

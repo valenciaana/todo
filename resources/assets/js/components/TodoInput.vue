@@ -19,7 +19,6 @@
         },
         methods:{
             addTodo () {
-                console.log(this.todoItemText);
                 this.$emit('addTodo',this.todoItemText);
             }
         }

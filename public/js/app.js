@@ -29768,6 +29768,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /**
  * Tips:
@@ -29789,14 +29791,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         var _this = this;
 
-        this.mute = true;
         window.axios.get('/api/todos').then(function (_ref) {
             var data = _ref.data;
 
             data.forEach(function (todo) {
                 _this.items.push(todo);
             });
-            _this.mute = false;
         });
     },
 
@@ -29814,14 +29814,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         removeTodo: function removeTodo(todo) {
+            var _this2 = this;
+
             window.axios.delete('/api/todos/' + todo.id);
-            this.items = this.items.filter(function (item) {
-                return item !== todo;
+            this.items = [];
+            window.axios.get('/api/todos').then(function (_ref2) {
+                var data = _ref2.data;
+
+                data.forEach(function (todo) {
+                    _this2.items.push(todo);
+                });
             });
         },
         toggleDone: function toggleDone(todo) {
             window.axios.put('/api/todos/' + todo.id, todo);
             todo.done = !todo.done;
+            this.items.find(function (todo) {
+                return todo.id === todo.id;
+            }).done = todo.done;
         }
     },
     components: {
@@ -29904,7 +29914,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         addTodo: function addTodo() {
-            console.log(this.todoItemText);
             this.$emit('addTodo', this.todoItemText);
         }
     }
@@ -30107,7 +30116,15 @@ var render = function() {
       _vm._l(_vm.items, function(todo) {
         return _c(
           "todo-item",
-          _vm._b({ key: todo.id }, "todo-item", todo, false)
+          _vm._b(
+            {
+              key: todo.id,
+              on: { toggleDone: _vm.toggleDone, removeTodo: _vm.removeTodo }
+            },
+            "todo-item",
+            todo,
+            false
+          )
         )
       })
     )
