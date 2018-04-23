@@ -29767,6 +29767,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /**
  * Tips:
@@ -29903,6 +29904,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         addTodo: function addTodo() {
+            console.log(this.todoItemText);
             this.$emit('addTodo', this.todoItemText);
         }
     }
@@ -29923,19 +29925,19 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: this.todoItemText,
-            expression: "this.todoItemText"
+            value: _vm.todoItemText,
+            expression: "todoItemText"
           }
         ],
         staticClass: "input",
         attrs: { type: "text", placeholder: "Nuevo recordatorio" },
-        domProps: { value: this.todoItemText },
+        domProps: { value: _vm.todoItemText },
         on: {
           input: function($event) {
             if ($event.target.composing) {
               return
             }
-            this.todoItemText = $event.target.value
+            _vm.todoItemText = $event.target.value
           }
         }
       })
@@ -30095,7 +30097,7 @@ var render = function() {
     _c(
       "div",
       { staticClass: "box" },
-      [_c("todo-input", { on: { click: _vm.addTodo } })],
+      [_c("todo-input", { on: { click: _vm.addTodo, addTodo: _vm.addTodo } })],
       1
     ),
     _vm._v(" "),

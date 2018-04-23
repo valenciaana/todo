@@ -3,6 +3,7 @@
         <div class="box">
             <todo-input
                 @click="addTodo"
+                @addTodo="addTodo"
             ></todo-input>
         </div>
         <table class="table is-bordered">

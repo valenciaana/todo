@@ -1,7 +1,7 @@
 <template>
     <div class="field is-grouped">
         <p class="control is-expanded">
-            <input class="input" type="text" placeholder="Nuevo recordatorio" v-model="this.todoItemText">
+            <input class="input" type="text" placeholder="Nuevo recordatorio" v-model="todoItemText">
         </p>
         <p class="control">
             <a class="button is-info" @click="addTodo">
@@ -19,6 +19,7 @@
         },
         methods:{
             addTodo () {
+                console.log(this.todoItemText);
                 this.$emit('addTodo',this.todoItemText);
             }
         }
