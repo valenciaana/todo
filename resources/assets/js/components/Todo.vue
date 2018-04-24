@@ -28,20 +28,19 @@
      */
     import TodoInput from './TodoInput.vue';
     import TodoItem from './TodoItem.vue';
+    import { mapState } from 'vuex';
 
     export default {
+        computed: mapState([
+            'items'
+        ]),
         data () {
             return {
                 todoItemText: '',
-                items: [],
             }
         },
         mounted () {
-            window.axios.get('/api/todos').then(({ data }) => {
-                data.forEach(todo => {
-                    this.items.push(todo);
-                });
-            });
+            this.$store.dispatch('LOAD_TODOS')
         },
         methods: {
             addTodo (todoItemText) {
@@ -58,12 +57,7 @@
             },
             removeTodo (todo) {
                 window.axios.delete(`/api/todos/${todo.id}`);
-                this.items = [];
-                window.axios.get('/api/todos').then(({ data }) => {
-                    data.forEach(todo => {
-                        this.items.push(todo);
-                    });
-                });
+                this.$store.dispatch('LOAD_TODOS')
             },
             toggleDone (todo) {
                 window.axios.put(`/api/todos/${todo.id}`, todo);
