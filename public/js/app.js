@@ -30297,21 +30297,35 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
       axios.post('/api/todos', todo).then(function (data) {
         commit('ADD_TODO', { todo: data.data });
       });
+    },
+    REMOVE_TODO: function REMOVE_TODO(_ref5, _ref6) {
+      var commit = _ref5.commit,
+          state = _ref5.state;
+      var todo = _ref6.todo;
+
+      axios.delete('/api/todos/' + todo.id);
+    },
+    TOGGLE_TODO: function TOGGLE_TODO(_ref7, _ref8) {
+      var commit = _ref7.commit,
+          state = _ref7.state;
+      var todo = _ref8.todo;
+
+      todo.done = !todo.done;
+      axios.put('/api/todos/' + todo.id, todo);
     }
   },
   mutations: {
-    SET_TODOS_LIST: function SET_TODOS_LIST(state, _ref5) {
-      var list = _ref5.list;
+    SET_TODOS_LIST: function SET_TODOS_LIST(state, _ref9) {
+      var list = _ref9.list;
 
       state.items = [];
       list.forEach(function (todo) {
         state.items.push(todo);
       });
     },
-    ADD_TODO: function ADD_TODO(state, _ref6) {
-      var todo = _ref6.todo;
+    ADD_TODO: function ADD_TODO(state, _ref10) {
+      var todo = _ref10.todo;
 
-      console.log(todo);
       state.items.push(todo);
     }
   },
@@ -30806,19 +30820,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (text !== '') {
                 var todo = { text: text, done: false };
                 this.$store.dispatch('ADD_TODO', { todo: todo });
-                //this.$store.dispatch('LOAD_TODOS')
             }
         },
         removeTodo: function removeTodo(todo) {
-            window.axios.delete('/api/todos/' + todo.id);
+            this.$store.dispatch('REMOVE_TODO', { todo: todo });
             this.$store.dispatch('LOAD_TODOS');
         },
         toggleDone: function toggleDone(todo) {
-            window.axios.put('/api/todos/' + todo.id, todo);
-            todo.done = !todo.done;
-            this.items.find(function (todo) {
-                return todo.id === todo.id;
-            }).done = todo.done;
+            this.$store.dispatch('TOGGLE_TODO', { todo: todo });
+            this.$store.dispatch('LOAD_TODOS');
         }
     },
     components: {

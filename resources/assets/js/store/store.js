@@ -15,6 +15,13 @@ const store = new Vuex.Store({
       axios.post('/api/todos', todo).then((data) => {
         commit('ADD_TODO', { todo: data.data })
       })
+    },
+    REMOVE_TODO : function ({ commit, state }, { todo }) {
+      axios.delete('/api/todos/' + todo.id)
+    },
+    TOGGLE_TODO : function ({ commit, state }, { todo }) {
+      todo.done = !todo.done
+      axios.put('/api/todos/' + todo.id, todo)
     }
   },
   mutations: {

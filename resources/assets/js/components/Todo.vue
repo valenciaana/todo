@@ -51,13 +51,12 @@
                 }
             },
             removeTodo (todo) {
-                window.axios.delete(`/api/todos/${todo.id}`);
+                this.$store.dispatch('REMOVE_TODO', { todo: todo })
                 this.$store.dispatch('LOAD_TODOS')
             },
             toggleDone (todo) {
-                window.axios.put(`/api/todos/${todo.id}`, todo);
-                todo.done = !todo.done
-                this.items.find(todo => todo.id === todo.id).done = todo.done;
+                this.$store.dispatch('TOGGLE_TODO', { todo: todo })
+                this.$store.dispatch('LOAD_TODOS')
             }
         },
         components: {
