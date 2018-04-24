@@ -47,12 +47,7 @@
                 let text = todoItemText.trim()
                 if (text !== '') {
                     var todo = {text:text,done:false};
-                    window.axios.post('/api/todos', todo, {
-                        headers: {
-                            'Content-Type': 'application/json',
-                        }
-                    })
-                    this.items.push(todo)
+                    this.$store.dispatch('ADD_TODO', { todo: todo })
                 }
             },
             removeTodo (todo) {

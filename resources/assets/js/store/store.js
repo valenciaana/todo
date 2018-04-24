@@ -11,8 +11,10 @@ const store = new Vuex.Store({
         commit('SET_TODOS_LIST', { list: data })
       })
     },
-    REMOVE_TODO :  function({commit}){
-      
+    ADD_TODO : function ({ commit, state }, { todo }) {
+      axios.post('/api/todos', todo).then((data) => {
+        commit('ADD_TODO', { todo: data.data })
+      })
     }
   },
   mutations: {
@@ -21,6 +23,9 @@ const store = new Vuex.Store({
       list.forEach(todo => {
         state.items.push(todo);
       });
+    },
+    ADD_TODO: (state, { todo }) => {
+      state.items.push(todo)
     }
   },
   getters: {

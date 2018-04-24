@@ -30288,16 +30288,31 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
 
         commit('SET_TODOS_LIST', { list: data });
       });
+    },
+    ADD_TODO: function ADD_TODO(_ref3, _ref4) {
+      var commit = _ref3.commit,
+          state = _ref3.state;
+      var todo = _ref4.todo;
+
+      axios.post('/api/todos', todo).then(function (data) {
+        commit('ADD_TODO', { todo: data.data });
+      });
     }
   },
   mutations: {
-    SET_TODOS_LIST: function SET_TODOS_LIST(state, _ref3) {
-      var list = _ref3.list;
+    SET_TODOS_LIST: function SET_TODOS_LIST(state, _ref5) {
+      var list = _ref5.list;
 
       state.items = [];
       list.forEach(function (todo) {
         state.items.push(todo);
       });
+    },
+    ADD_TODO: function ADD_TODO(state, _ref6) {
+      var todo = _ref6.todo;
+
+      console.log(todo);
+      state.items.push(todo);
     }
   },
   getters: {},
@@ -30790,17 +30805,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var text = todoItemText.trim();
             if (text !== '') {
                 var todo = { text: text, done: false };
-                window.axios.post('/api/todos', todo, {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-                this.items.push(todo);
+                this.$store.dispatch('ADD_TODO', { todo: todo });
+                //this.$store.dispatch('LOAD_TODOS')
             }
         },
         removeTodo: function removeTodo(todo) {
             window.axios.delete('/api/todos/' + todo.id);
-            //this.items = [];
             this.$store.dispatch('LOAD_TODOS');
         },
         toggleDone: function toggleDone(todo) {
